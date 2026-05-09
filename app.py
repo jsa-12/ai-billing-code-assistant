@@ -1555,7 +1555,6 @@ def render_main_app():
         )
 
     with right_col:
-        st.markdown('<div class="section-title">💳 Billing Code Assistant</div>', unsafe_allow_html=True)
         st.markdown(
             """
             <div class="ehr-card billing-card accent-billing ai-billing-shell">
@@ -1567,11 +1566,6 @@ def render_main_app():
                     </div>
                 </div>
             """,
-            unsafe_allow_html=True,
-        )
-
-        st.markdown(
-            '<div class="guided-input-note">Quick-select realistic demo options or choose a custom entry when needed.</div>',
             unsafe_allow_html=True,
         )
 
@@ -1606,10 +1600,6 @@ def render_main_app():
             "default_procedure",
             f"procedure_choice_{selected_patient['id']}",
             f"procedure_custom_{selected_patient['id']}",
-        )
-        st.markdown(
-            '<div class="smart-hint">💡 Tip: Be specific with diagnosis to improve code accuracy</div>',
-            unsafe_allow_html=True,
         )
 
         st.markdown('<div class="spacer-sm"></div>', unsafe_allow_html=True)
