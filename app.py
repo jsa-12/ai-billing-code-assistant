@@ -1078,6 +1078,49 @@ def get_vital_indicator(label, value):
     return "normal"
 
 
+def unique_preserve(values):
+    seen = set()
+    ordered = []
+    for value in values:
+        cleaned = str(value).strip()
+        if not cleaned or cleaned in seen:
+            continue
+        seen.add(cleaned)
+        ordered.append(cleaned)
+    return ordered
+
+
+def get_patient_field_suggestions(patient_records, current_patient, field_name, limit=8):
+    current_value = current_patient[field_name]
+    same_condition_values = [
+        patient[field_name]
+        for patient in patient_records
+        if patient["patient_id"] != current_patient["patient_id"]
+        and patient["primary_condition"] == current_patient["primary_condition"]
+    ]
+    all_values = [
+        patient[field_name]
+        for patient in patient_records
+        if patient["patient_id"] != current_patient["patient_id"]
+    ]
+    return unique_preserve([current_value] + same_condition_values + all_values)[:limit]
+
+
+def render_guided_field(label, icon, current_patient, field_name, choice_key, custom_key):
+    suggestions = get_patient_field_suggestions(st.session_state["patient_records"], current_patient, field_name)
+    options = suggestions + ["Custom entry..."]
+    selected_option = st.selectbox(f"{icon} {label}", options, key=choice_key)
+
+    if selected_option == "Custom entry...":
+        return st.text_input(
+            f"Custom {label}",
+            key=custom_key,
+            placeholder=current_patient[field_name],
+        )
+
+    return selected_option
+
+
 def render_dashboard_sidebar(current_page):
     nav_items = [
         ("🏠", "Dashboard"),
@@ -1527,22 +1570,42 @@ def render_main_app():
             unsafe_allow_html=True,
         )
 
-        visit_reason = st.text_input(
-            "🩺 Visit Reason",
-            key="visit_reason",
-            placeholder=profile["default_visit_reason"],
+        st.markdown(
+            '<div class="guided-input-note">Quick-select realistic demo options or choose a custom entry when needed.</div>',
+            unsafe_allow_html=True,
+        )
+
+        if st.button("Use Patient Defaults", key=f"use_defaults_{selected_patient['id']}", use_container_width=True):
+            st.session_state[f"visit_reason_choice_{selected_patient['id']}"] = profile["default_visit_reason"]
+            st.session_state[f"diagnosis_choice_{selected_patient['id']}"] = profile["default_diagnosis"]
+            st.session_state[f"procedure_choice_{selected_patient['id']}"] = profile["default_procedure"]
+            st.rerun()
+
+        visit_reason = render_guided_field(
+            "Visit Reason",
+            "🩺",
+            profile,
+            "default_visit_reason",
+            f"visit_reason_choice_{selected_patient['id']}",
+            f"visit_reason_custom_{selected_patient['id']}",
         )
         st.markdown('<div class="field-gap"></div>', unsafe_allow_html=True)
-        diagnosis = st.text_input(
-            "🧾 Diagnosis",
-            key="diagnosis",
-            placeholder=profile["default_diagnosis"],
+        diagnosis = render_guided_field(
+            "Diagnosis",
+            "🧾",
+            profile,
+            "default_diagnosis",
+            f"diagnosis_choice_{selected_patient['id']}",
+            f"diagnosis_custom_{selected_patient['id']}",
         )
         st.markdown('<div class="field-gap"></div>', unsafe_allow_html=True)
-        procedure = st.text_input(
-            "⚙️ Procedure",
-            key="procedure",
-            placeholder=profile["default_procedure"],
+        procedure = render_guided_field(
+            "Procedure",
+            "⚙️",
+            profile,
+            "default_procedure",
+            f"procedure_choice_{selected_patient['id']}",
+            f"procedure_custom_{selected_patient['id']}",
         )
         st.markdown(
             '<div class="smart-hint">💡 Tip: Be specific with diagnosis to improve code accuracy</div>',
@@ -2390,6 +2453,12 @@ st.markdown(
         color: #58709a;
         font-size: 0.9rem;
         font-weight: 600;
+    }
+    .guided-input-note {
+        margin-bottom: 0.85rem;
+        color: #607b96;
+        font-size: 0.9rem;
+        line-height: 1.5;
     }
     .results-heading {
         font-size: 1.28rem;
