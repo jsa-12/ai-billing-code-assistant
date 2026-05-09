@@ -2583,6 +2583,11 @@ st.markdown(
         display: none !important;
         visibility: hidden !important;
     }
+    [data-testid="stToolbar"] a:not(:first-child),
+    [data-testid="stToolbar"] button:not(:first-child) {
+        display: none !important;
+        visibility: hidden !important;
+    }
     .page-header-card,
     .dashboard-info-card,
     .patient-header-card,
