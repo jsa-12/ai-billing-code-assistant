@@ -45,130 +45,260 @@ STOPWORDS = {
 }
 
 PATIENTS = [
-    {"name": "Fahda Alajmi", "gender": "Female"},
-    {"name": "Rawan Alghebiwi", "gender": "Female"},
-    {"name": "Rohan Allen", "gender": "Male"},
-    {"name": "Jawad Alobaidan", "gender": "Male"},
-    {"name": "Koniska Bandyopadhyay", "gender": "Female"},
-    {"name": "Bill Bwana", "gender": "Male"},
-    {"name": "Khadidiatou Dia", "gender": "Female"},
-    {"name": "Yuying Ding", "gender": "Female"},
-    {"name": "Zihang Ding", "gender": "Male"},
-    {"name": "Chengcheng Du", "gender": "Female"},
-    {"name": "Tianjin Duan", "gender": "Male"},
-    {"name": "Mingyu Gao", "gender": "Male"},
-    {"name": "Bingning Guo", "gender": "Female"},
-    {"name": "Haojia Hu", "gender": "Male"},
-    {"name": "Haitong Huang", "gender": "Male"},
-    {"name": "Ruoxuan Huang", "gender": "Female"},
-    {"name": "Xiaoxi Jiang", "gender": "Female"},
-    {"name": "Tuosheng Jiao", "gender": "Male"},
-    {"name": "Harang Ju", "gender": "Male"},
-    {"name": "Qi Kan", "gender": "Male"},
-    {"name": "Chengyao Li", "gender": "Female"},
-    {"name": "Lyra Li", "gender": "Female"},
-    {"name": "Shuzheng Lin", "gender": "Female"},
-    {"name": "Wilson Liu", "gender": "Male"},
-    {"name": "Lixing Lu", "gender": "Male"},
-    {"name": "Yiyun Ma", "gender": "Female"},
-    {"name": "Calis Nguyen", "gender": "Male"},
-    {"name": "Tieyuan Qian", "gender": "Male"},
-    {"name": "Bocheng Shi", "gender": "Male"},
-    {"name": "Sophia Tamakloe", "gender": "Female"},
-    {"name": "Zhonghuan Tang", "gender": "Male"},
-    {"name": "Emanuel Telles Chaves", "gender": "Male"},
-    {"name": "Yiyang Tong", "gender": "Female"},
-    {"name": "Tito Vivas Buitrago", "gender": "Male"},
-    {"name": "Mingyu Wang", "gender": "Male"},
-    {"name": "Ruiming Wang", "gender": "Male"},
-    {"name": "Xiaojia Wang", "gender": "Female"},
-    {"name": "Yijing Wang", "gender": "Female"},
-    {"name": "Yuzhou Wang", "gender": "Male"},
-    {"name": "Zihan Wang", "gender": "Male"},
-    {"name": "Ziyu Wang", "gender": "Female"},
-    {"name": "Yixin Wei", "gender": "Female"},
-    {"name": "Haoyu Xie", "gender": "Male"},
-    {"name": "Xin Yuan", "gender": "Female"},
-    {"name": "Hanrui Zhang", "gender": "Female"},
-    {"name": "Shangjun Zhang", "gender": "Female"},
-    {"name": "Yuhui Zhang", "gender": "Female"},
-    {"name": "Rui Zhao", "gender": "Male"},
-    {"name": "Shiyi Zhao", "gender": "Female"},
-    {"name": "Xingyuan Zheng", "gender": "Male"},
-    {"name": "Minying Zhou", "gender": "Female"},
-    {"name": "Yuan Zhou", "gender": "Male"},
+    {
+        "name": "Fahda Alajmi",
+        "patient_id": "PT-20001",
+        "age": 26,
+        "gender": "Female",
+        "primary_condition": "Hypertension",
+        "visit_type": "Chronic care follow-up",
+        "insurance": "Active PPO",
+        "patient_bio": "Fahda Alajmi is a 26-year-old Female patient with essential hypertension managed with medication. She is visiting today for blood pressure follow-up and medication review.",
+        "vitals": {
+            "blood_pressure": "138/86 mmHg",
+            "heart_rate": "78 bpm",
+            "temperature": "98.4 F",
+            "oxygen_saturation": "98%",
+        },
+        "clinical_note": "Patient presents for hypertension follow-up and blood pressure review. Home blood pressure readings have been mildly elevated this week. Medication management and cardiovascular follow-up completed in clinic.",
+        "default_visit_reason": "Blood pressure follow-up",
+        "default_diagnosis": "Essential hypertension",
+        "default_procedure": "Established patient follow-up with medication management",
+        "status": "Not Complete",
+    },
+    {
+        "name": "Rawan Alghebiwi",
+        "patient_id": "PT-20002",
+        "age": 24,
+        "gender": "Female",
+        "primary_condition": "Sore Throat/URI",
+        "visit_type": "Acute sick visit",
+        "insurance": "Commercial HMO",
+        "patient_bio": "Rawan Alghebiwi is a 24-year-old Female patient with no major chronic conditions. She is visiting today for sore throat and upper respiratory symptoms.",
+        "vitals": {
+            "blood_pressure": "116/72 mmHg",
+            "heart_rate": "92 bpm",
+            "temperature": "99.1 F",
+            "oxygen_saturation": "98%",
+        },
+        "clinical_note": "Patient reports sore throat, congestion, and mild cough for 3 days. Low-grade fever noted yesterday. Focused respiratory exam completed and rapid strep testing discussed.",
+        "default_visit_reason": "Sore throat and congestion",
+        "default_diagnosis": "Acute pharyngitis / upper respiratory infection",
+        "default_procedure": "Office sick visit with rapid strep evaluation",
+        "status": "Not Complete",
+    },
+    {
+        "name": "Rohan Allen",
+        "patient_id": "PT-20003",
+        "age": 29,
+        "gender": "Male",
+        "primary_condition": "GERD",
+        "visit_type": "Medication management visit",
+        "insurance": "Employer-Sponsored Plan",
+        "patient_bio": "Rohan Allen is a 29-year-old Male patient with gastroesophageal reflux disease. He is visiting today for persistent reflux symptoms after meals.",
+        "vitals": {
+            "blood_pressure": "122/78 mmHg",
+            "heart_rate": "74 bpm",
+            "temperature": "98.3 F",
+            "oxygen_saturation": "99%",
+        },
+        "clinical_note": "Patient reports reflux, heartburn, and mild upper abdominal discomfort after meals. Symptoms improve partially with over-the-counter medication. GERD counseling and medication review completed.",
+        "default_visit_reason": "Heartburn and reflux follow-up",
+        "default_diagnosis": "Gastroesophageal reflux disease",
+        "default_procedure": "Established patient evaluation with reflux medication review",
+        "status": "Not Complete",
+    },
+    {
+        "name": "Jawad Alobaidan",
+        "patient_id": "PT-20004",
+        "age": 27,
+        "gender": "Male",
+        "primary_condition": "Low Back Pain",
+        "visit_type": "Established outpatient visit",
+        "insurance": "Marketplace Bronze Plan",
+        "patient_bio": "Jawad Alobaidan is a 27-year-old Male patient with intermittent low back pain. He is visiting today after increased discomfort related to prolonged sitting.",
+        "vitals": {
+            "blood_pressure": "118/76 mmHg",
+            "heart_rate": "72 bpm",
+            "temperature": "98.2 F",
+            "oxygen_saturation": "99%",
+        },
+        "clinical_note": "Patient reports low back pain after long periods of sitting. No trauma, weakness, or bowel or bladder symptoms. Focused musculoskeletal exam completed and conservative follow-up discussed.",
+        "default_visit_reason": "Low back pain after prolonged sitting",
+        "default_diagnosis": "Low back pain",
+        "default_procedure": "Established patient musculoskeletal evaluation",
+        "status": "Not Complete",
+    },
+    {
+        "name": "Koniska Bandyopadhyay",
+        "patient_id": "PT-20005",
+        "age": 25,
+        "gender": "Female",
+        "primary_condition": "Hypertension",
+        "visit_type": "Chronic care follow-up",
+        "insurance": "Medicaid Managed Care",
+        "patient_bio": "Koniska Bandyopadhyay is a 25-year-old Female patient with recently diagnosed hypertension. She is visiting today for follow-up on blood pressure control.",
+        "vitals": {
+            "blood_pressure": "142/88 mmHg",
+            "heart_rate": "80 bpm",
+            "temperature": "98.5 F",
+            "oxygen_saturation": "98%",
+        },
+        "clinical_note": "Patient is here for hypertension follow-up. Blood pressure remains above goal despite current therapy. Medication management and treatment follow-up reviewed during the visit.",
+        "default_visit_reason": "Hypertension medication follow-up",
+        "default_diagnosis": "Essential hypertension",
+        "default_procedure": "Office follow-up for blood pressure management",
+        "status": "Not Complete",
+    },
+    {
+        "name": "Bill Bwana",
+        "patient_id": "PT-20006",
+        "age": 31,
+        "gender": "Male",
+        "primary_condition": "Sore Throat/URI",
+        "visit_type": "Acute sick visit",
+        "insurance": "Active PPO",
+        "patient_bio": "Bill Bwana is a 31-year-old Male patient with no chronic cardiopulmonary disease. He is visiting today for sore throat, cough, and respiratory symptoms.",
+        "vitals": {
+            "blood_pressure": "120/74 mmHg",
+            "heart_rate": "90 bpm",
+            "temperature": "99.0 F",
+            "oxygen_saturation": "97%",
+        },
+        "clinical_note": "Patient reports sore throat, cough, and nasal congestion for 2 days. No chest pain or shortness of breath. Focused respiratory exam completed and URI care plan reviewed.",
+        "default_visit_reason": "Cough, congestion, and sore throat",
+        "default_diagnosis": "Upper respiratory infection",
+        "default_procedure": "Office sick visit with focused respiratory evaluation",
+        "status": "Not Complete",
+    },
+    {
+        "name": "Khadidiatou Dia",
+        "patient_id": "PT-20007",
+        "age": 28,
+        "gender": "Female",
+        "primary_condition": "GERD",
+        "visit_type": "Medication management visit",
+        "insurance": "Commercial HMO",
+        "patient_bio": "Khadidiatou Dia is a 28-year-old Female patient with GERD symptoms triggered by late meals. She is visiting today for reflux follow-up.",
+        "vitals": {
+            "blood_pressure": "114/70 mmHg",
+            "heart_rate": "76 bpm",
+            "temperature": "98.1 F",
+            "oxygen_saturation": "99%",
+        },
+        "clinical_note": "Patient reports worsening heartburn and reflux in the evening with occasional abdominal discomfort. GERD symptoms and medication adherence were reviewed in clinic.",
+        "default_visit_reason": "Reflux and heartburn follow-up",
+        "default_diagnosis": "Gastroesophageal reflux disease",
+        "default_procedure": "Established patient reflux evaluation and counseling",
+        "status": "Not Complete",
+    },
+    {
+        "name": "Yuying Ding",
+        "patient_id": "PT-20008",
+        "age": 23,
+        "gender": "Female",
+        "primary_condition": "Low Back Pain",
+        "visit_type": "Established outpatient visit",
+        "insurance": "Student Health Plan",
+        "patient_bio": "Yuying Ding is a 23-year-old Female patient with recurrent low back pain related to posture and prolonged studying. She is visiting today for symptom review.",
+        "vitals": {
+            "blood_pressure": "112/68 mmHg",
+            "heart_rate": "70 bpm",
+            "temperature": "98.0 F",
+            "oxygen_saturation": "99%",
+        },
+        "clinical_note": "Patient reports back pain after prolonged sitting and computer work. No trauma or neurologic deficits reported. Musculoskeletal exam completed and supportive care discussed.",
+        "default_visit_reason": "Low back pain with prolonged sitting",
+        "default_diagnosis": "Low back pain",
+        "default_procedure": "Office follow-up with musculoskeletal exam",
+        "status": "Not Complete",
+    },
+    {
+        "name": "Zihang Ding",
+        "patient_id": "PT-20009",
+        "age": 30,
+        "gender": "Male",
+        "primary_condition": "Hypertension",
+        "visit_type": "Medication management visit",
+        "insurance": "Employer-Sponsored Plan",
+        "patient_bio": "Zihang Ding is a 30-year-old Male patient with hypertension on daily medication. He is visiting today for blood pressure and treatment follow-up.",
+        "vitals": {
+            "blood_pressure": "136/84 mmHg",
+            "heart_rate": "77 bpm",
+            "temperature": "98.4 F",
+            "oxygen_saturation": "98%",
+        },
+        "clinical_note": "Patient presents for blood pressure follow-up and hypertension medication management. Home readings are variable but improving. Cardiovascular follow-up completed during the visit.",
+        "default_visit_reason": "Blood pressure check and medication review",
+        "default_diagnosis": "Essential hypertension",
+        "default_procedure": "Established patient follow-up for hypertension management",
+        "status": "Not Complete",
+    },
+    {
+        "name": "Chengcheng Du",
+        "patient_id": "PT-20010",
+        "age": 24,
+        "gender": "Female",
+        "primary_condition": "Sore Throat/URI",
+        "visit_type": "Acute sick visit",
+        "insurance": "Marketplace Bronze Plan",
+        "patient_bio": "Chengcheng Du is a 24-year-old Female patient with an acute sore throat and congestion. She is visiting today for upper respiratory evaluation.",
+        "vitals": {
+            "blood_pressure": "118/71 mmHg",
+            "heart_rate": "88 bpm",
+            "temperature": "99.3 F",
+            "oxygen_saturation": "98%",
+        },
+        "clinical_note": "Patient reports sore throat, nasal congestion, and dry cough for 4 days with intermittent fever. Respiratory symptoms reviewed and focused exam completed in clinic.",
+        "default_visit_reason": "Sore throat with congestion and cough",
+        "default_diagnosis": "Acute upper respiratory infection",
+        "default_procedure": "Focused respiratory office evaluation",
+        "status": "Not Complete",
+    },
 ]
 
-AGES = [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]
 
-BACKGROUND_OPTIONS = [
-    "no major chronic conditions",
-    "mild intermittent asthma",
-    "seasonal allergies",
-    "well-controlled hypertension",
-    "history of migraine headaches",
-    "gastroesophageal reflux symptoms",
-    "prediabetes managed with lifestyle changes",
-    "eczema with occasional flares",
-    "generalized anxiety treated conservatively",
-    "chronic low back pain",
-]
+def validate_patient_cases(patient_cases):
+    issues = []
+    required_fields = [
+        "name",
+        "patient_id",
+        "age",
+        "gender",
+        "primary_condition",
+        "visit_type",
+        "patient_bio",
+        "vitals",
+        "clinical_note",
+        "default_visit_reason",
+        "default_diagnosis",
+        "default_procedure",
+        "status",
+    ]
 
-VISIT_REASONS = [
-    "upper respiratory symptoms",
-    "blood pressure follow-up",
-    "annual preventive care",
-    "headache review",
-    "cough and congestion",
-    "medication follow-up",
-    "sore throat and fatigue",
-    "low back discomfort",
-    "heartburn symptoms",
-    "skin irritation",
-]
+    condition_rules = {
+        "Hypertension": ["blood pressure", "hypertension", "medication management", "follow-up"],
+        "Sore Throat/URI": ["sore throat", "congestion", "cough", "fever", "strep", "respiratory"],
+        "GERD": ["reflux", "heartburn", "abdominal discomfort", "gerd"],
+        "Low Back Pain": ["back pain", "sitting", "musculoskeletal exam", "no trauma"],
+    }
 
-NOTE_TEMPLATES = [
-    "Patient reports sore throat, mild fatigue, and nasal congestion for the past 3 days. No chest pain or shortness of breath. Focused respiratory exam completed in clinic.",
-    "Patient presents for blood pressure follow-up and medication review. Home readings are improved overall. Cardiovascular exam and treatment discussion completed in clinic.",
-    "Patient is here for preventive care and wellness counseling. Screening history reviewed and no acute concerns reported today. Routine exam performed.",
-    "Patient reports intermittent headaches over the last week without vision loss or focal weakness. Neurologic screening is reassuring. Office evaluation completed.",
-    "Patient reports dry cough and sinus pressure for several days. No fever today and breathing is comfortable at rest. Focused HEENT and respiratory exam completed.",
-    "Patient presents for medication follow-up with stable symptoms and good adherence. No acute distress reported. Routine outpatient reassessment completed.",
-    "Patient reports low back discomfort after prolonged sitting. No trauma, weakness, or bowel or bladder symptoms. Focused musculoskeletal exam completed.",
-    "Patient reports heartburn after meals with occasional throat irritation. No vomiting, weight loss, or GI bleeding symptoms. Abdominal review and counseling completed.",
-    "Patient reports itchy rash on the arms with mild redness and dryness. No drainage or systemic symptoms. Skin exam completed in clinic.",
-    "Patient reports sneezing, congestion, and itchy eyes during the last week. No wheezing or respiratory distress today. Focused allergy review completed.",
-]
+    for patient in patient_cases:
+        missing_fields = [field for field in required_fields if field not in patient]
+        if missing_fields:
+            issues.append(f"{patient.get('name', 'Unknown patient')} is missing fields: {', '.join(missing_fields)}.")
+            continue
 
-PRIMARY_CONDITIONS = [
-    "Hypertension",
-    "Seasonal Allergies",
-    "Upper Respiratory Symptoms",
-    "Asthma Follow-up",
-    "Preventive Care",
-    "Migraine Review",
-    "GERD Symptoms",
-    "Low Back Pain",
-    "Dermatitis",
-    "Prediabetes Monitoring",
-]
+        note_text = patient["clinical_note"].lower()
+        primary_condition = patient["primary_condition"]
+        if primary_condition in condition_rules:
+            keywords = condition_rules[primary_condition]
+            if not any(keyword in note_text for keyword in keywords):
+                issues.append(
+                    f"{patient['name']} has primary condition '{primary_condition}' but the clinical note does not match it."
+                )
 
-INSURANCE_OPTIONS = [
-    "Active PPO",
-    "Commercial HMO",
-    "Student Health Plan",
-    "Medicaid Managed Care",
-    "Employer-Sponsored Plan",
-    "Marketplace Bronze Plan",
-]
-
-VISIT_TYPES = [
-    "Established outpatient visit",
-    "Acute sick visit",
-    "Preventive wellness visit",
-    "Chronic care follow-up",
-    "Medication management visit",
-]
+    return issues
 
 def get_patient_initials(name):
     parts = name.split()
@@ -255,21 +385,14 @@ def analyze_billing_inputs(visit_reason, diagnosis, procedure, clinical_notes):
     }
 
 
-def build_patient_records(names):
+def build_patient_records(patient_cases):
     records = []
-    for index, patient_data in enumerate(names, start=1):
-        name = patient_data["name"]
-        patient_key = sum(ord(char) for char in name)
-        records.append(
-            {
-                "name": name,
-                "gender": patient_data["gender"],
-                "id": f"PT-{20000 + index}",
-                "condition": PRIMARY_CONDITIONS[patient_key % len(PRIMARY_CONDITIONS)],
-                "status": "Not Complete",
-                "avatar": get_patient_initials(name),
-            }
-        )
+    for patient in patient_cases:
+        record = copy.deepcopy(patient)
+        record["id"] = patient["patient_id"]
+        record["condition"] = patient["primary_condition"]
+        record["avatar"] = get_patient_initials(patient["name"])
+        records.append(record)
     return records
 
 
@@ -372,42 +495,7 @@ def generate_billing_code_suggestions(visit_reason, diagnosis, procedure, clinic
 
 
 def get_patient_profile(patient):
-    patient_name = patient["name"]
-    patient_key = sum(ord(char) for char in patient_name)
-    age = AGES[patient_key % len(AGES)]
-    gender = patient["gender"]
-    visit_reason = VISIT_REASONS[patient_key % len(VISIT_REASONS)]
-    visit_note = NOTE_TEMPLATES[patient_key % len(NOTE_TEMPLATES)]
-    insurance = INSURANCE_OPTIONS[patient_key % len(INSURANCE_OPTIONS)]
-    visit_type = VISIT_TYPES[patient_key % len(VISIT_TYPES)]
-
-    systolic = 108 + (patient_key % 24)
-    diastolic = 68 + (patient_key % 11)
-    heart_rate = 64 + (patient_key % 20)
-    temperature = 98.1 + ((patient_key % 7) * 0.2)
-    oxygen_sat = 97 + (patient_key % 3)
-
-    bio = (
-        f"{patient_name} is a {age}-year-old {gender} patient with a history of "
-        f"{patient['condition'].lower()}. The patient is visiting today for {visit_reason}."
-    )
-
-    return {
-        "age": age,
-        "gender": gender,
-        "patient_id": patient["id"],
-        "insurance": insurance,
-        "visit_type": visit_type,
-        "condition": patient["condition"],
-        "bio": bio,
-        "visit_note": visit_note,
-        "vitals": {
-            "blood_pressure": f"{systolic}/{diastolic} mmHg",
-            "heart_rate": f"{heart_rate} bpm",
-            "temperature": f"{temperature:.1f} F",
-            "oxygen_saturation": f"{oxygen_sat}%",
-        },
-    }
+    return patient
 
 
 def build_result_card_data(suggestion):
@@ -738,8 +826,8 @@ def render_patient_selection():
                             <div class="directory-status status-{status_class}">{patient["status"]}</div>
                         </div>
                         <div class="directory-name">{patient["name"]}</div>
-                        <div class="directory-id">{patient["id"]}</div>
-                        <div class="directory-condition">{patient["condition"]}</div>
+                        <div class="directory-id">{patient["patient_id"]}</div>
+                        <div class="directory-condition">{patient["primary_condition"]}</div>
                     </div>
                     """,
                     unsafe_allow_html=True,
@@ -809,7 +897,7 @@ def render_main_app():
                     <div class="header-metric"><span>Gender</span><strong>{profile["gender"]}</strong></div>
                     <div class="header-metric"><span>Patient ID</span><strong>{profile["patient_id"]}</strong></div>
                     <div class="header-metric"><span>Insurance</span><strong>{profile["insurance"]}</strong></div>
-                    <div class="header-metric"><span>Primary Condition</span><strong>{selected_patient["condition"]}</strong></div>
+                    <div class="header-metric"><span>Primary Condition</span><strong>{profile["primary_condition"]}</strong></div>
                 </div>
             </div>
         </div>
@@ -825,7 +913,7 @@ def render_main_app():
             f"""
             <div class="ehr-card overview-card">
                 <div class="card-label">Patient Bio</div>
-                <div class="notes-line">{profile["bio"]}</div>
+                <div class="notes-line">{profile["patient_bio"]}</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -861,7 +949,7 @@ def render_main_app():
             f"""
             <div class="ehr-card notes-accent-card">
                 <div class="card-label">Clinical Note</div>
-                <div class="notes-line">{profile["visit_note"]}</div>
+                <div class="notes-line">{profile["clinical_note"]}</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -886,19 +974,19 @@ def render_main_app():
         visit_reason = st.text_input(
             "🩺 Visit Reason",
             key="visit_reason",
-            placeholder="Example: Follow-up for blood pressure management",
+            placeholder=profile["default_visit_reason"],
         )
         st.markdown('<div class="field-gap"></div>', unsafe_allow_html=True)
         diagnosis = st.text_input(
             "🧾 Diagnosis",
             key="diagnosis",
-            placeholder="Example: Essential hypertension",
+            placeholder=profile["default_diagnosis"],
         )
         st.markdown('<div class="field-gap"></div>', unsafe_allow_html=True)
         procedure = st.text_input(
             "⚙️ Procedure",
             key="procedure",
-            placeholder="Example: Established patient outpatient evaluation",
+            placeholder=profile["default_procedure"],
         )
         st.markdown(
             '<div class="smart-hint">💡 Tip: Be specific with diagnosis to improve code accuracy</div>',
@@ -923,7 +1011,7 @@ def render_main_app():
                             visit_reason,
                             diagnosis,
                             procedure,
-                            profile["visit_note"],
+                            profile["clinical_note"],
                         )
 
                     st.session_state["generated_reviews"][selected_patient["id"]] = copy.deepcopy(suggestions)
@@ -1914,6 +2002,10 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+patient_case_issues = validate_patient_cases(PATIENTS)
+if patient_case_issues:
+    raise ValueError("Invalid demo patient cases:\n" + "\n".join(patient_case_issues))
+
 if "logged_in" not in st.session_state:
     st.session_state["logged_in"] = False
 if "doctor_name" not in st.session_state:
@@ -1930,7 +2022,18 @@ if "billing_reviews" not in st.session_state:
     st.session_state["billing_reviews"] = 0
 if "generated_reviews" not in st.session_state:
     st.session_state["generated_reviews"] = {}
-if "patient_records" not in st.session_state:
+valid_patient_ids = {patient["patient_id"] for patient in PATIENTS}
+if "generated_reviews" in st.session_state:
+    st.session_state["generated_reviews"] = {
+        patient_id: reviews
+        for patient_id, reviews in st.session_state["generated_reviews"].items()
+        if patient_id in valid_patient_ids
+    }
+if (
+    "patient_records" not in st.session_state
+    or len(st.session_state["patient_records"]) != len(PATIENTS)
+    or any("primary_condition" not in patient for patient in st.session_state["patient_records"])
+):
     st.session_state["patient_records"] = copy.deepcopy(build_patient_records(PATIENTS))
 if "visit_reason" not in st.session_state:
     st.session_state["visit_reason"] = ""
@@ -1938,6 +2041,8 @@ if "diagnosis" not in st.session_state:
     st.session_state["diagnosis"] = ""
 if "procedure" not in st.session_state:
     st.session_state["procedure"] = ""
+if st.session_state["selected_patient"] and not find_patient_record(st.session_state["selected_patient"]):
+    st.session_state["selected_patient"] = ""
 
 st.session_state["billing_reviews"] = len(st.session_state["generated_reviews"])
 
