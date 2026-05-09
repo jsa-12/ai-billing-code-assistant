@@ -2568,6 +2568,21 @@ st.markdown(
         color: #ffffff !important;
         box-shadow: inset 0 0 0 1px rgba(192, 219, 241, 0.08) !important;
     }
+    button[title*="star" i],
+    button[aria-label*="star" i],
+    button[title*="edit" i],
+    button[aria-label*="edit" i],
+    a[title*="github" i],
+    a[aria-label*="github" i],
+    button[title*="github" i],
+    button[aria-label*="github" i],
+    #MainMenu,
+    button[aria-label*="menu" i][kind="header"],
+    button[title*="more" i],
+    button[aria-label*="more" i] {
+        display: none !important;
+        visibility: hidden !important;
+    }
     .page-header-card,
     .dashboard-info-card,
     .patient-header-card,
