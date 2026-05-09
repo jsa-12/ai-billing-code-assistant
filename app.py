@@ -6,7 +6,7 @@ import re
 import pandas as pd
 import streamlit as st
 
-SHARED_PASSWORD = "demo123"
+SHARED_PASSWORD = "demojhu@12"
 BILLING_CODES_PATH = "Data/Billing_codes.csv"
 TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
 STOPWORDS = {
