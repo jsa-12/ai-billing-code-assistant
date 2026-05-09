@@ -89,12 +89,11 @@ The assistant reduced the time needed to search for billing codes and simplified
 
 ---
 
-## How To Run
+## Live Demo
 
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
+Try the live deployed application here:
+
+https://ai-billing-code-assistant-tdfo8ysmcweahxopfz4bka.streamlit.app
 
 ## Future Improvements
 
