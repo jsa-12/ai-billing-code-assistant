@@ -2632,6 +2632,106 @@ st.markdown(
             gap: 10px;
         }
     }
+    @media (max-width: 1100px) {
+        .stApp .main .block-container {
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+        .stApp [data-testid="stHorizontalBlock"] {
+            flex-wrap: wrap;
+            gap: 1rem !important;
+        }
+        .stApp [data-testid="stHorizontalBlock"] > [data-testid="column"] {
+            min-width: calc(50% - 0.5rem) !important;
+            flex: 1 1 calc(50% - 0.5rem) !important;
+        }
+        .patient-header-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .welcome-hero {
+            gap: 22px;
+        }
+    }
+    @media (max-width: 768px) {
+        .stApp .main .block-container {
+            padding-left: 0.9rem;
+            padding-right: 0.9rem;
+            padding-top: 1rem;
+        }
+        .stApp [data-testid="stHorizontalBlock"] > [data-testid="column"] {
+            min-width: 100% !important;
+            flex: 1 1 100% !important;
+        }
+        .header-card,
+        .ehr-card,
+        .patient-header-card,
+        .dashboard-stat-card,
+        .directory-card,
+        .result-card,
+        .welcome-banner,
+        .welcome-hero,
+        .auth-form-card,
+        .auth-visual-panel {
+            width: 100% !important;
+        }
+        .patient-header-main {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .patient-header-grid {
+            grid-template-columns: 1fr;
+        }
+        .welcome-banner {
+            gap: 14px;
+        }
+        .welcome-image {
+            width: 100%;
+            max-width: 180px;
+            height: auto;
+            border-radius: 12px;
+        }
+        .welcome-copy {
+            padding: 0;
+        }
+        .auth-panel-title,
+        .entry-title,
+        .welcome-name,
+        .app-title {
+            word-break: break-word;
+        }
+        .auth-panel-content,
+        .welcome-hero-copy {
+            max-width: 100%;
+        }
+        .welcome-hero {
+            gap: 18px;
+        }
+        .welcome-hero-image {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+        }
+        .feature-chip-row,
+        .status-chip-row {
+            gap: 0.55rem;
+        }
+        .feature-chip,
+        .feature-chip-light {
+            font-size: 0.82rem;
+        }
+        div.stButton > button,
+        .stDownloadButton > button {
+            width: 100% !important;
+            min-height: 48px;
+        }
+        div[data-testid="stTextInput"],
+        div[data-testid="stSelectbox"] {
+            width: 100% !important;
+        }
+        section[data-testid="stSidebar"] {
+            min-width: 0 !important;
+        }
+    }
     </style>
     """,
     unsafe_allow_html=True,
