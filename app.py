@@ -41,7 +41,29 @@ STOPWORDS = {
     "clinic",
     "completed",
     "evaluation",
+    "examination",
+    "exam",
+    "outpatient",
+    "established",
+    "counseling",
+    "counsel",
+    "encounter",
+    "routine",
+    "adult",
+    "general",
+    "disease",
+    "medication",
+    "regimen",
+    "therapy",
     "management",
+}
+TOKEN_EXPANSIONS = {
+    "gastroesophageal": {"gastro", "esophageal", "reflux"},
+    "heartburn": {"reflux"},
+    "hypertension": {"pressure"},
+    "uri": {"upper", "respiratory", "infection"},
+    "back": {"lumbar"},
+    "pharyngitis": {"throat"},
 }
 
 PATIENT_DIRECTORY = [
@@ -741,11 +763,15 @@ def get_image_data_uri(image_path):
 
 
 def tokenize_text(text):
-    return [
+    base_tokens = [
         token
         for token in TOKEN_PATTERN.findall(str(text).lower())
         if len(token) > 2 and token not in STOPWORDS
     ]
+    expanded_tokens = set(base_tokens)
+    for token in base_tokens:
+        expanded_tokens.update(TOKEN_EXPANSIONS.get(token, set()))
+    return sorted(expanded_tokens)
 
 
 @st.cache_data(show_spinner=False)
@@ -799,6 +825,12 @@ def analyze_billing_inputs(visit_reason, diagnosis, procedure, clinical_notes):
         "term_weights": term_weights,
         "term_sources": term_sources,
         "diagnosis_text": str(diagnosis).lower().strip(),
+        "source_tokens": {
+            "visit reason": set(tokenize_text(visit_reason)),
+            "diagnosis": set(tokenize_text(diagnosis)),
+            "procedure": set(tokenize_text(procedure)),
+            "clinical notes": set(tokenize_text(clinical_notes)),
+        },
         "query_text": " ".join(
             value.strip().lower()
             for value in [visit_reason, diagnosis, procedure, clinical_notes]
@@ -845,28 +877,92 @@ def generate_billing_code_suggestions(visit_reason, diagnosis, procedure, clinic
     term_weights = analysis["term_weights"]
     diagnosis_text = analysis["diagnosis_text"]
     query_text = analysis["query_text"]
+    source_tokens = analysis["source_tokens"]
 
     if not term_weights:
         raise ValueError("Enter more clinical detail to search the billing code dataset.")
 
+    context_terms = {
+        "preventive", "wellness", "screening", "follow", "followup", "follow-up",
+        "history", "medication", "review", "exam", "encounter",
+    }
+    query_context_tokens = context_terms & set(tokenize_text(query_text))
+    complication_terms = {"complication", "device", "implant", "postoperative", "postop", "surgery", "surgical"}
+    query_complication_tokens = complication_terms & set(tokenize_text(query_text))
+
+    def get_family_key(row):
+        family_text = row.category_description or row.description or row.short_description
+        family_tokens = [
+            token for token in tokenize_text(family_text)
+            if token not in {"unspecified", "without", "with", "other"}
+        ]
+        family_label = " ".join(family_tokens[:3]) if family_tokens else str(row.icd10_code)[:3].lower()
+        code_stem = re.sub(r"[^a-z0-9]", "", str(row.icd10_code).lower())[:3]
+        return code_stem, family_label
+
+    def is_distinct_candidate(candidate, chosen_rows):
+        candidate_stem, candidate_family = get_family_key(candidate)
+        candidate_terms = set(tokenize_text(candidate.description))
+
+        for chosen in chosen_rows:
+            chosen_stem, chosen_family = get_family_key(chosen)
+            chosen_terms = set(tokenize_text(chosen.description))
+
+            overlap_ratio = 0.0
+            if candidate_terms and chosen_terms:
+                overlap_ratio = len(candidate_terms & chosen_terms) / max(len(candidate_terms), len(chosen_terms))
+
+            if candidate_stem == chosen_stem and candidate_family == chosen_family:
+                return False
+            if candidate_family == chosen_family and overlap_ratio >= 0.6:
+                return False
+
+        return True
+
     scored_rows = []
     for row in billing_codes.itertuples(index=False):
-        score = 0
-        matched_terms = []
+        diagnosis_matches = source_tokens["diagnosis"] & row.search_terms
+        reason_matches = source_tokens["visit reason"] & row.search_terms
+        procedure_matches = source_tokens["procedure"] & row.search_terms
+        note_matches = source_tokens["clinical notes"] & row.search_terms
+        context_matches = context_terms & row.search_terms
+        clinical_match_count = len(diagnosis_matches | reason_matches | note_matches)
+        complication_matches = complication_terms & row.search_terms
 
-        for term, weight in term_weights.items():
-            if term in row.search_terms:
-                score += weight * 3
-                matched_terms.append(term)
+        if str(row.icd10_code).upper().startswith("Z") and not (query_context_tokens and context_matches):
+            continue
+        if clinical_match_count == 0 and not (query_context_tokens and context_matches):
+            continue
+        if complication_matches and not query_complication_tokens:
+            continue
+
+        score = (
+            len(diagnosis_matches) * 7
+            + len(reason_matches) * 4
+            + len(procedure_matches) * 3
+            + len(note_matches) * 2
+        )
 
         if diagnosis_text and diagnosis_text in row.search_text:
-            score += 8
+            score += 10
 
         if row.category_description and row.category_description.lower() in query_text:
             score += 4
 
+        if context_matches and any(term in query_text for term in context_terms):
+            score += 3
+
+        matched_terms = list(diagnosis_matches | reason_matches | procedure_matches | note_matches)
+
+        if diagnosis_matches:
+            bucket = "primary"
+        elif str(row.icd10_code).upper().startswith("Z") or context_matches:
+            bucket = "context"
+        else:
+            bucket = "supporting"
+
         if score > 0:
-            scored_rows.append((score, len(matched_terms), row, matched_terms))
+            scored_rows.append((score, len(diagnosis_matches), len(matched_terms), bucket, row, matched_terms))
 
     if not scored_rows:
         raise ValueError("No relevant billing codes were found in the local dataset for these inputs.")
@@ -875,18 +971,18 @@ def generate_billing_code_suggestions(visit_reason, diagnosis, procedure, clinic
         key=lambda item: (
             item[0],
             item[1],
-            len(item[2].description),
+            item[2],
+            len(item[4].description),
         ),
         reverse=True,
     )
 
     suggestions = []
     seen_codes = set()
-    for _, _, row, matched_terms in scored_rows:
-        if row.icd10_code in seen_codes:
-            continue
+    chosen_rows = []
+    primary_code_prefix = None
 
-        seen_codes.add(row.icd10_code)
+    def append_suggestion(row, matched_terms):
         top_terms = matched_terms[:3]
         source_labels = sorted(
             {source for term in top_terms for source in analysis["term_sources"].get(term, set())}
@@ -910,8 +1006,46 @@ def generate_billing_code_suggestions(visit_reason, diagnosis, procedure, clinic
             }
         )
 
-        if len(suggestions) == 3:
+    for preferred_bucket in ["primary", "supporting", "context"]:
+        for _, diagnosis_match_count, _, bucket, row, matched_terms in scored_rows:
+            if bucket != preferred_bucket or row.icd10_code in seen_codes:
+                continue
+            code_prefix = str(row.icd10_code).upper()[:1]
+            if preferred_bucket != "primary" and primary_code_prefix:
+                if code_prefix not in {primary_code_prefix, "R", "Z"}:
+                    continue
+            if preferred_bucket != "primary" and len(matched_terms) < 2:
+                if not (diagnosis_text and diagnosis_text in row.search_text) and diagnosis_match_count == 0:
+                    continue
+            if not is_distinct_candidate(row, chosen_rows):
+                continue
+
+            seen_codes.add(row.icd10_code)
+            chosen_rows.append(row)
+            if preferred_bucket == "primary" and not primary_code_prefix:
+                primary_code_prefix = code_prefix
+            append_suggestion(row, matched_terms)
             break
+
+    if len(suggestions) < 3:
+        for _, diagnosis_match_count, _, _, row, matched_terms in scored_rows:
+            if row.icd10_code in seen_codes:
+                continue
+            code_prefix = str(row.icd10_code).upper()[:1]
+            if primary_code_prefix and code_prefix not in {primary_code_prefix, "R", "Z"}:
+                continue
+            if len(matched_terms) < 2:
+                if not (diagnosis_text and diagnosis_text in row.search_text) and diagnosis_match_count == 0:
+                    continue
+            if not is_distinct_candidate(row, chosen_rows):
+                continue
+
+            seen_codes.add(row.icd10_code)
+            chosen_rows.append(row)
+            append_suggestion(row, matched_terms)
+
+            if len(suggestions) == 3:
+                break
 
     return suggestions
 
