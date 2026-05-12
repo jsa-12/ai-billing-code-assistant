@@ -56,27 +56,26 @@ The dataset contains:
 
 ---
 
-## Evaluation
+### Baseline vs. AI Billing Assistant
 
-The project was evaluated using several synthetic patient visit examples.
-
-### Baseline
-
-Manual ICD-10 code lookup using keyword search.
-
-### Billing Assistant Workflow
-
-Automated ICD-10 billing code suggestions from patient visit information.
-
-| Test Case | Manual Workflow | Billing Assistant |
+| Metric | Manual Workflow | AI Billing Assistant |
 |---|---|---|
-| Chest pain | Required manual dataset search | Suggested relevant ICD-10 codes instantly |
-| Diabetes follow-up | Multiple code options caused confusion | Returned narrowed billing suggestions |
-| Migraine visit | Time-consuming lookup process | Faster billing code retrieval |
+| Test Cases | 10 | 10 |
+| Relevant ICD-10 code identified | 6/10 | 9/10 |
+| Accuracy | 60% | 90% |
+| Average Lookup Time | 2–4 minutes | Under 10 seconds |
+| Workflow Type | Manual dataset search | Automated code suggestions |
 
-### Findings
+### Key Findings
+- The AI assistant reduced the time required to search for ICD-10 billing codes
+- The system performed best when clinical notes and diagnoses were clear and specific
+- Manual lookup often required searching through multiple similar billing codes
+- The AI workflow provided faster and more organized billing recommendations
 
-The assistant reduced the time needed to search for billing codes and simplified the billing review process. The system worked best when visit descriptions were clear and specific.
+### Limitations
+- The system still requires human review before final billing submission
+- Ambiguous or incomplete visit information can reduce suggestion quality
+- The evaluation used synthetic patient data rather than real clinical records
 
 ---
 
@@ -104,30 +103,4 @@ https://ai-billing-code-assistant-tdfo8ysmcweahxopfz4bka.streamlit.app
 - Add secure authentication and role-based access control for providers
 - Deploy the application as a cloud-hosted healthcare workflow platform
 
-## Evaluation & Results
 
-### Evaluation Method
-- Tested using 10 synthetic patient visit cases generated from the application dataset
-- Compared the AI Billing Code Assistant against a manual ICD-10 keyword lookup workflow
-- Success was measured by whether the system returned at least 1 clinically relevant ICD-10 billing code within the top 3 suggestions
-
-### Baseline vs. AI Billing Assistant
-
-| Metric | Manual Workflow | AI Billing Assistant |
-|---|---|---|
-| Test Cases | 10 | 10 |
-| Relevant ICD-10 code identified | 6/10 | 9/10 |
-| Accuracy | 60% | 90% |
-| Average Lookup Time | 2–4 minutes | Under 10 seconds |
-| Workflow Type | Manual dataset search | Automated code suggestions |
-
-### Key Findings
-- The AI assistant reduced the time required to search for ICD-10 billing codes
-- The system performed best when clinical notes and diagnoses were clear and specific
-- Manual lookup often required searching through multiple similar billing codes
-- The AI workflow provided faster and more organized billing recommendations
-
-### Limitations
-- The system still requires human review before final billing submission
-- Ambiguous or incomplete visit information can reduce suggestion quality
-- The evaluation used synthetic patient data rather than real clinical records
