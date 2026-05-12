@@ -161,7 +161,7 @@ CASE_BLUEPRINTS = [
         "note_options": [
             "Patient presents for blood pressure follow-up and medication review. Home blood pressure readings have remained above target this week, and medication management was reviewed during follow-up.",
             "Patient is here for hypertension follow-up after elevated blood pressure readings at home. Cardiovascular review was stable, and medication management was discussed in clinic.",
-            "Patient returns for blood pressure management with no acute symptoms. Hypertension follow-up and medication adherence were reviewed during today's visit.",
+            "Patient returns  afor blood pressure management with no acute symptoms. Hypertension follow-up and medication adherence were reviewed during today's visit.",
             "Patient presents for follow-up of hypertension with mildly elevated blood pressure today. Home monitoring, medication management, and follow-up planning were completed in clinic.",
         ],
         "vital_options": [
@@ -2800,3 +2800,4 @@ else:
         render_settings_page()
     else:
         render_dashboard_home()
+    
