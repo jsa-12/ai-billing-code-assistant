@@ -63,7 +63,7 @@ The dataset contains:
 | Test Cases | 10 | 10 |
 | Relevant ICD-10 code identified | 6/10 | 9/10 |
 | Accuracy | 60% | 90% |
-| Average Lookup Time | 2–4 minutes | Under 10 seconds |
+| Average Lookup Time | 2–4 minutes | <10 seconds |
 | Workflow Type | Manual dataset search | Automated code suggestions |
 
 ### Key Findings
